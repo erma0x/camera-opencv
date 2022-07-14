@@ -1,14 +1,17 @@
 import sys
+import os
 import argparse
 from datetime import datetime
 from time import sleep
+
 import cv2
 import depthai as dai
 import numpy as np
-import os
-# esempio di come lanciare lo script                      
-# python3  .\tests\camera\depthai_test.py --id_camera "14442C1001293DD700" --nome_cartella "viz" --intervallo_secondi 4
 
+"""esempio di come lanciare lo script                      
+
+python3  .\tests\camera\depthai_test.py --id_camera "14442C1001293DD700" --nome_cartella "viz" --intervallo_secondi 2
+"""
 
 # parametri camera depthaAI
 nome_pannello_di_controllo = "video"
@@ -117,7 +120,6 @@ if not found:
 
 i=0
 
-#try:
 with dai.Device(pipeline, device_info) as device:
     
     video = device.getOutputQueue( name = nome_pannello_di_controllo, maxSize = 1, blocking = False)
@@ -141,16 +143,13 @@ with dai.Device(pipeline, device_info) as device:
 
         #risultato_finale = disegna_difetti( img = frame  )
 
-        cv2.imshow(nome_pannello_di_controllo, frame)
+        cv2.imshow(nome_pannello_di_controllo, frame)       
         
         i+=1
         
         sleep(float(INTERVALLO_SECONDI))
-        
+
         cv2.imwrite(sys.path[0]+"/img/"+str(NOME_CARTELLA)+"/foto_"+str(i)+".png",frame) 
 
         if cv2.waitKey(2) == ord('c'):
             break
-
-#except RuntimeError:
-  #  print("Errore nel catturare le fotografie")
