@@ -141,12 +141,10 @@ with dai.Device(pipeline, device_info) as device:
 
         frame =  videoIn.getCvFrame()
 
-        #risultato_finale = disegna_difetti( img = frame  )
-
         cv2.imshow(nome_pannello_di_controllo, frame)       
         
         i+=1
-        
+
         sleep(float(INTERVALLO_SECONDI))
 
         cv2.imwrite(sys.path[0]+"/img/"+str(NOME_CARTELLA)+"/foto_"+str(i)+".png",frame) 
